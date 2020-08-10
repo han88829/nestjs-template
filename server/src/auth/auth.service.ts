@@ -31,6 +31,12 @@ export class AuthService {
                 msg: "token 过期"
             }
         }
-
     }
+
+    async validateUser(payload: any): Promise<any> {
+        // return await this.usersService.findOneByEmail(payload.email);
+        console.log(payload);
+        return {};
+    }
+
 }

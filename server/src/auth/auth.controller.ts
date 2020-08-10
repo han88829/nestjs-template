@@ -1,5 +1,6 @@
-import { Controller, Param, Get, Logger, Query, UnauthorizedException, Session, Request, Post, Body } from '@nestjs/common';
+import { Controller, Param, Get, Logger, Query, UnauthorizedException, Session, Request, Post, Body, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -23,6 +24,7 @@ export class AuthController {
     }
 
     @Get()
+    @UseGuards(AuthGuard())
     fetch(@Query() { token }, @Request() req): object {
         console.log(req.session.user);
         const data = this.authService.verify(token);
