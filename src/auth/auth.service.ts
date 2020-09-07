@@ -19,11 +19,13 @@ export class AuthService {
 
     async validateUser(account: string, pwd: string): Promise<any> {
         const user = await this.UserService.find({ account });
+        if (!user) return { status: -1, msg: "未查询到用户信息！" };
+
         const _pwd = encryptPassword(pwd, user.account);
         if (user && user.pwd === _pwd) {
-            return user;
+            return { status: 1, data: this.login(user) };
         }
-        return null;
+        return { status: -1, msg: "密码错误！" };
     }
     async validatePwd(account: string, token: string): Promise<any> {
 
@@ -35,7 +37,7 @@ export class AuthService {
         return null;
     }
 
-    async login(user: any) {
+    login(user: any) {
         const payload = { account: user.account, token: encryptPassword(user.pwd, `${user.account}${user.id}`) };
         return this.jwtService.sign(payload)
     }

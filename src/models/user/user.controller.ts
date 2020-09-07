@@ -34,17 +34,19 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     @Post()
     save(@Body() { ...data }) {
-
-
         return this.users.save(data);
     }
 
     @Post('login')
     async login(@Body() { account, pwd }) {
         const user = await this.auth.validateUser(account, pwd);
-        console.log(user);
+        return user;
+    }
 
-        return this.auth.login(user);
+    @Post('register')
+    async register(@Body() { ...data }) {
+        const res = await this.users.register(data);
+        return res
     }
 
 }
