@@ -24,7 +24,6 @@ export class UserController {
     @Get()
     async find(@Query() { id }, @Request() req) {
         const user = req.user;
-        console.log('是我没错了', user);
         return {
             data: await this.users.find(id),
             status: 1,

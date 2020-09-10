@@ -19,6 +19,8 @@ export class AuthService {
 
     async validateUser(account: string, pwd: string): Promise<any> {
         const user = await this.UserService.find({ account });
+        console.log(user);
+
         if (!user) return { status: -1, msg: "未查询到用户信息！" };
 
         const _pwd = encryptPassword(pwd, user.account);

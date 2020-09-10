@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Photo } from "../photo/photo.entity";
 
 @Entity()
 export class Users {
@@ -19,6 +20,9 @@ export class Users {
 
     @UpdateDateColumn()
     update_time
+
+    @OneToMany(type => Photo, photo => photo.user)
+    photos: Photo[]
 }
 
 // 一对一

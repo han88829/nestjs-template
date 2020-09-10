@@ -6,6 +6,8 @@ import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './models/user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { PhotoModule } from './models/photo/photo.module';
+import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -16,12 +18,13 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: ["dist/**/*.entity{.ts,.js}"],
+      entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: true,
     }),
     HelloModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    PhotoModule
   ],
   controllers: [AppController],
   providers: [AppService],

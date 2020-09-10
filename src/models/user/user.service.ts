@@ -12,7 +12,7 @@ export class UserService {
     ) { }
 
     async find(where): Promise<Users> {
-        const user = await this.users.findOne(where);
+        const user = await this.users.findOne({ ...where, relations: ['photos'] })
         return user
     }
     save(data) {
