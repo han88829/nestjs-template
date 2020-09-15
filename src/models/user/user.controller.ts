@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: sueRimn
+ * @Date: 2020-09-07 10:53:07
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2020-09-11 13:28:02
+ */
 import { Controller, Get, Query, Post, Body, UseGuards, Inject, forwardRef, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -23,7 +31,7 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     @Get()
     async find(@Query() { id }, @Request() req) {
-        const user = req.user;
+        const { pwd, ...user } = req.user;
         return {
             data: await this.users.find(id),
             status: 1,
