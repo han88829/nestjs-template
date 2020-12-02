@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { HelloModule } from './models/hello/hello.module';
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './models/user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { PhotoModule } from './models/photo/photo.module';
 import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './models/user/user.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -21,10 +19,8 @@ import { join } from 'path';
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: true,
     }),
-    HelloModule,
     UserModule,
     AuthModule,
-    PhotoModule
   ],
   controllers: [AppController],
   providers: [AppService],
